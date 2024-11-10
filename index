@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dropdown with Free Text Input</title>
+  <!-- Include Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .editable {
+      display: none;
+      border: 1px solid #ccc;
+      padding: 5px;
+      font-size: 16px;
+      cursor: text;
+      border-radius: .375rem;
+      background-color: #fff;
+      width: 100%;  /* Make editable div width match the dropdown */
+    }
+    select.form-select {
+      width: 100%;  /* Ensure the select has 100% width */
+    }
+
+  </style>
+</head>
+<body>
+
+    <!-- Dropdown with Bootstrap 'form-select' class -->
+    <select id="options" class="form-select" style="width:150px" onchange="toggleEditableField()">
+      <option value="Option 1">Option 1</option>
+      <option value="Option 2">Option 2</option>
+      <option value="Option 3">Option 3</option>
+      <option value="Other">Other</option>
+    </select>
+
+    <!-- Editable div, will take the same id when shown -->
+    <div id="editable" contenteditable="true" class="editable" style="width:150px" onblur="restoreDropdown()" placeholder="Type here..."></div>
+
+
+  <!-- Include Bootstrap JS (optional, for Bootstrap features like tooltips or modals) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    function toggleEditableField() {
+      const dropdown = document.getElementById("options");
+      const editableDiv = document.getElementById("editable");
+
+      if (dropdown.value === "Other") {
+        editableDiv.id = "options";              // Change div id to "options"
+        dropdown.id = "";                        // Remove id from the dropdown
+        dropdown.style.display = "none";         // Hide the dropdown
+        editableDiv.style.display = "inline-block"; // Show the editable div
+        editableDiv.focus();                     // Focus on the editable div
+      }
+    }
+
+    function restoreDropdown() {
+      const dropdown = document.querySelector("select");
+      const editableDiv = document.getElementById("options");
+
+      // Only restore dropdown if the editable div is empty
+      if (editableDiv.textContent.trim() === "") {
+        editableDiv.style.display = "none";      // Hide editable div
+        editableDiv.id = "editable";             // Change div id back to "editable"
+        dropdown.id = "options";                 // Restore dropdown id to "options"
+        dropdown.style.display = "inline-block"; // Show dropdown again
+        dropdown.value = "";                     // Reset dropdown selection
+      }
+    }
+  </script>
+
+</body>
+</html>
