@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select a Title</title>
+</head>
+<body>
+
+    <label for="title">Choose a title:</label>
+    <input type="text" id="test" name="title" list="titleList" autocomplete="off">
+    
+    <datalist id="titleList">
+        <option value="Mr">
+        <option value="Mrs">
+        <option value="Ms">
+        <option value="Dr">
+        <option value="Prof">
+        <option value="Type your own">
+    </datalist>
+
+    <script>
+        // Get the textbox element
+        const titleInput = document.getElementById('test');
+
+        // Listen for the "input" event to detect changes
+        titleInput.addEventListener('input', function() {
+            // Check if the selected value is "Other"
+            if (titleInput.value === 'Type your own') {
+                // Clear the textbox to allow the user to type freely
+                titleInput.value = '';
+                titleInput.placeholder = 'Enter your title...'; // Optional: Add a placeholder for guidance
+            }
+        });
+    </script>
+
+</body>
+</html>
