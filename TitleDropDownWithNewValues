@@ -51,27 +51,13 @@
         }
 
         titleInput.addEventListener('input', function () {
+            // This ensures the 'Type your own' logic works correctly, keeping the placeholder when typed
             if (titleInput.value === 'Type your own') {
-                titleInput.value = '';
                 titleInput.placeholder = 'Enter your title...';
             } else {
-                updateDatalistOptions(titleInput.value);
+                titleInput.placeholder = ''; // Reset placeholder once the user types something else
             }
         });
-
-        function updateDatalistOptions(selectedValue) {
-            // Clear existing options
-            titleList.innerHTML = '';
-
-            // Add options, excluding the currently selected one
-            titles
-                .filter(title => title.toLowerCase() !== selectedValue.toLowerCase())
-                .forEach(title => {
-                    const option = document.createElement('option');
-                    option.value = title;
-                    titleList.appendChild(option);
-                });
-        }
 
         function fallbackSelect() {
             const selectedValue = titleFallback.value;
@@ -83,13 +69,30 @@
                 titleInput.placeholder = 'Enter your title...';
             } else {
                 titleInput.value = selectedValue;
-                updateDatalistOptions(selectedValue);
             }
         }
 
-        // Initial load of options
-        updateDatalistOptions('');
+        // Ensure the correct title is selected and the datalist remains intact
+        titleInput.addEventListener('change', function() {
+            // This ensures that the typed value, if any, is retained
+            if (!titles.includes(titleInput.value) && titleInput.value !== '') {
+                titleInput.placeholder = 'Enter your title...';
+            }
+        });
+
+        // Initial load of options in case 'Type your own' was previously selected
+        function initialize() {
+            // Set up datalist options with no modification
+            titles.forEach(function(title) {
+                const option = document.createElement('option');
+                option.value = title;
+                titleList.appendChild(option);
+            });
+        }
+
+        initialize();
     </script>
 
 </body>
 </html>
+
