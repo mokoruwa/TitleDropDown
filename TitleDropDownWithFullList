@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Textbox with Suggestions</title>
+  <style>
+    div.freetextinput {
+      position: relative;
+      height: 20px;
+      display: inline-flex;
+      padding: 5px 0 5px 0;
+    }
+    select.freetextinput {
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      height: 30px;
+    }
+    input.freetextinput {
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      height: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="freetextinput" style="width:190px;">
+  <select class="freetextinput" style="width:190px;">   
+    <option value="Mr">Mr</option>
+    <option value="Mrs">Mrs</option>
+	<option value="Miss">Miss</option>
+	<option value="Dr">Dr</option>
+	 <option value="">Type your own.......</option>
+  </select>
+  <input type="text" class="freetextinput" style="width:160px;padding:4px 6px;border-width:1px;margin:5;">
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+jQuery(function() {
+
+  $('select.freetextinput').focus(function() {
+    $(this).siblings('input.freetextinput').focus();
+  });
+
+
+  $('select.freetextinput').change(function() {
+    $(this).siblings('input.freetextinput').val($(this).val());
+  });
+
+
+  $('input.freetextinput').focus(function() {
+
+    if (!$(this).val()) {
+      $(this).siblings('select.freetextinput').val('');
+    }
+  });
+});
+</script>
+
+</body>
+</html>
