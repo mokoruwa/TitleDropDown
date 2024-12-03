@@ -61,5 +61,11 @@ jQuery(function() {
 });
 </script>
 
+  // Change placeholder text when an option is selected
+  $('select.freetextinput').change(function() {
+    const selectedText = $(this).find('option:selected').text();
+    $(this).siblings('input.freetextinput').attr('placeholder', selectedText);
+  });
+
 </body>
 </html>
